@@ -3,7 +3,6 @@ import React from 'react';
 import {View, TextInput, StyleSheet, Platform } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
 const SearchBar = ({term, onTermChange, onTermSubmit}) => {
   return (
     <View style={styles.backgroundStyle}>
@@ -32,6 +31,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     flexDirection: 'row',
     marginTop: 10,
+    marginBottom: 10,
   },
   inputStyle: {
     flex: 1,
