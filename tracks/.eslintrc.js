@@ -16,13 +16,13 @@ module.exports = {
     'import/first': 'error',
     'object-curly-spacing': ['error', 'always'],
     'max-len': ['error', { code: 80 }],
-    indent: ['error', 2],
+    indent: ['error', 2, { "SwitchCase": 1 }],
     semi: ['error', 'always'],
     quotes: ['error', 'single'],
     'comma-dangle': ['error', 'never'],
     'arrow-parens': ['error', 'always'],
     'linebreak-style': 0,
-    'react/jsx-closing-bracket-location': [1, 'line-aligned']
+    'react/jsx-closing-bracket-location': [1, 'line-aligned'],
   },
   overrides: [
     {
