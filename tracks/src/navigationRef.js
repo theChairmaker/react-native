@@ -1,16 +1,7 @@
-import { NavigationActions } from 'react-navigation';
+import React from 'react';
 
-let navigator;
+export const navigationRef = React.createRef();
 
-export const setNavigator = (nav) => {
-  navigator = nav;
-};
-
-export const navigate = (routeName, params) => {
-  navigator.dispatch(
-    NavigationActions.navigate({
-      routeName,
-      params
-    })
-  );
+export const navigate = (name, params) => {
+  navigationRef.current?.navigate(name, params);
 };

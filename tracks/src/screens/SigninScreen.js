@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/authContext';
 import NavLink from '../components/NavLink';
 import AuthForm from '../components/AuthForm';
@@ -8,9 +7,16 @@ import AuthForm from '../components/AuthForm';
 const SigninScreen = ({ navigation }) => {
   const { state, signin, clearErrorMessage } = useContext(AuthContext);
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      clearErrorMessage();
+    });
+
+    return unsubscribe;
+  });
+
   return (
     <View style={styles.container}>
-      <NavigationEvents onWillFocus={clearErrorMessage} />
       <AuthForm
         headerText="Sign in for tracking"
         errorMessage={state.errorMessage}

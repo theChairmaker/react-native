@@ -24,9 +24,16 @@ const localSignin = (dispatch) => async () => {
     dispatch({ type: 'signin', payload: token });
     navigate('TrackList');
   } else {
-    navigate('LoginFlow');
+    navigate('Signin');
   }
-}
+};
+
+const localSigninMainApp = (dispatch) => async () => {
+  const token = AsyncStorage.getItem('token');
+  if (token) {
+    dispatch({ type: 'signin', payload: token });
+  }
+};
 
 const clearErrorMessage = (dispatch) => () => {
   dispatch({ type: 'clear_err_message' });
@@ -38,7 +45,7 @@ const signup = (dispatch) => {
       const response = await trackerApi.post('/signup', { email, password });
       await AsyncStorage.setItem('token', response.data.token);
       dispatch({ type: 'signin', payload: response.data.token });
-      navigate('TrackList');
+      // navigate('TrackList');
     } catch (err) {
       dispatch({ type: 'add_error', payload: 'Something went wrong' });
     }
@@ -51,7 +58,7 @@ const signin = (dispatch) => {
       const response = await trackerApi.post('/signin', { email, password });
       await AsyncStorage.setItem('token', response.data.token);
       dispatch({ type: 'signin', payload: response.data.token });
-      navigate('TrackList');
+      // navigate('TrackList');
     } catch (err) {
       dispatch({ type: 'add_error', payload: 'Wrong credentials' });
     }
@@ -64,11 +71,18 @@ const signin = (dispatch) => {
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem('token');
   dispatch({ type: 'signout' });
-  navigate('loginFlow');
+  navigate('Signin');
 };
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-  { signin, signout, signup, clearErrorMessage, localSignin },
+  {
+    signin,
+    signout,
+    signup,
+    clearErrorMessage,
+    localSignin,
+    localSigninMainApp
+  },
   { token: null, errorMessage: '' }
 );
